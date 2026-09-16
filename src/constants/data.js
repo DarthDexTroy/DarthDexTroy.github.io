@@ -214,7 +214,7 @@ export const PROJECTS = [
   },
   {
     title: 'Detecting Deficiencies',
-    subtitle: 'Spring 2026',
+    subtitle: 'HackUTD 2024',
     accent: '#F59E0B',
     details: [
       'Web app converting large-scale gas valve sensor telemetry into scatterplots',
