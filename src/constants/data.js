@@ -156,7 +156,7 @@ export const PROJECTS = [
   },
   {
     title: 'Pediatric X-Ray Cancer Detection',
-    subtitle: 'Fall 2025',
+    subtitle: 'AIMD Fall 2025',
     accent: '#8B5CF6',
     details: [
       'Developed an AI-powered medical imaging system that analyzes pediatric X-rays to identify and localize potential abnormalities.',
@@ -182,7 +182,7 @@ export const PROJECTS = [
   },
   {
     title: 'Diagnostiq',
-    subtitle: 'Spring 2026',
+    subtitle: 'Axxess 2026',
     accent: '#EC4899',
     details: [
       'AI diagnostic assistant capturing clinician-patient conversations via speech-to-text',
@@ -198,7 +198,7 @@ export const PROJECTS = [
   },
   {
     title: 'myCheckUp',
-    subtitle: 'Spring 2026',
+    subtitle: 'Axxess 2026',
     accent: '#06B6D4',
     details: [
       'Healthcare web and mobile app featuring an interactive survey and chatbot system',
@@ -230,7 +230,7 @@ export const PROJECTS = [
   },
   {
     title: 'YotaMatch',
-    subtitle: 'Spring 2026',
+    subtitle: 'HackUTD 2025',
     accent: '#10B981',
     details: [
       'Chat-based web app matching buyers to Toyota vehicles, trim packages, and financing',
@@ -246,7 +246,7 @@ export const PROJECTS = [
   },
   {
     title: 'FitLifeAI – AI-Powered Fitness & Diet App',
-    subtitle: 'Spring 2025 · AIMD',
+    subtitle: 'AIMD Spring 2025',
     accent: '#00D4AA',
     details: [
       'Developed an AI-powered fitness and nutrition platform for UTD students that generates personalized health plans based on fitness goals, dietary preferences, and campus dining options.',
