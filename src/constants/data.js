@@ -156,7 +156,7 @@ export const PROJECTS = [
   },
   {
     title: 'Pediatric X-Ray Cancer Detection',
-    subtitle: 'Spring 2025',
+    subtitle: 'Fall 2025',
     accent: '#8B5CF6',
     details: [
       '2nd Place - AIMD Annual ML Challenge',
@@ -244,10 +244,25 @@ export const PROJECTS = [
       { label: 'Devpost', href: 'https://devpost.com/software/toyota-website', icon: FaExternalLinkAlt },
     ],
   },
+  {
+    title: 'FitLifeAI – AI-Powered Fitness & Diet App',
+    subtitle: 'Spring 2025 · AIMD',
+    accent: '#00D4AA',
+    details: [
+      'Developed an AI-powered fitness and nutrition platform for UTD students that generates personalized health plans based on fitness goals, dietary preferences, and campus dining options.',
+      'Built a full-stack application using Node.js and Supabase, integrated Ollama and Mistral AI for personalized recommendations.',
+      'Developed Selenium web-scraping pipelines to incorporate UTD dining hall data.',
+    ],
+    stack: ['Node.js', 'Supabase', 'Selenium', 'Ollama', 'Mistral AI', 'HTML', 'CSS'],
+    award: false,
+    links: [
+      { label: 'Code', href: 'https://github.com/AIMD-UTD/FitLifeAI', icon: FaGithub },
+    ],
+  },
 ]
 
 export const LEFT_PROJECTS = [PROJECTS[0], PROJECTS[2], PROJECTS[4], PROJECTS[6], PROJECTS[8]]
-export const RIGHT_PROJECTS = [PROJECTS[1], PROJECTS[3], PROJECTS[5], PROJECTS[7], PROJECTS[9]]
+export const RIGHT_PROJECTS = [PROJECTS[1], PROJECTS[3], PROJECTS[5], PROJECTS[7], PROJECTS[9], PROJECTS[10]]
 
 export const CONTACT_LINKS = [
   {
