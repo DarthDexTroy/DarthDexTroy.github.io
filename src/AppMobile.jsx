@@ -15,7 +15,7 @@ import {
   HERO_ROTATING_TEXT,
   NAV_ITEMS,
   NAV_SOCIAL_LINKS,
-  PROJECTS,
+  CHRONOLOGICAL_PROJECTS,
   RESUME_PDF_URL,
 } from './constants/data'
 import { CHILD_VARIANTS, SECTION_VARIANTS } from './constants/variants'
@@ -264,7 +264,7 @@ function AppMobile() {
 
           <div className="projects-grid" style={{ gridTemplateColumns: '1fr' }}>
             <div className="project-column">
-              {PROJECTS.map((project, index) => (
+              {CHRONOLOGICAL_PROJECTS.map((project, index) => (
                 <ProjectCard
                   key={project.title}
                   project={project}
