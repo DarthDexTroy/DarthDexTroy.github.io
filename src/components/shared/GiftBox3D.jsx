@@ -2,7 +2,7 @@ import { Canvas } from '@react-three/fiber'
 import { useRef } from 'react'
 import GiftBoxScene from './GiftBoxScene'
 
-function GiftBox3D({ isOpen, isShaking, onClick }) {
+function GiftBox3D({ isOpen, isShaking, onClick, revealRef, reducedMotion }) {
   const isDragging = useRef(false)
   const pointerMoved = useRef(false)
   const startPointer = useRef({ x: 0, y: 0 })
@@ -17,6 +17,7 @@ function GiftBox3D({ isOpen, isShaking, onClick }) {
 
   const onPointerDown = (e) => {
     pointerMoved.current = false
+    if (isOpen) return
     isDragging.current = true
     startPointer.current = { x: e.clientX, y: e.clientY }
     lastPointer.current = { x: e.clientX, y: e.clientY }
@@ -53,14 +54,16 @@ function GiftBox3D({ isOpen, isShaking, onClick }) {
       onPointerDown={onPointerDown}
       onPointerMove={onPointerMove}
       onPointerUp={onPointerUp}
-      style={{ touchAction: 'none', width: '100%', height: '100%' }}
+      style={{ touchAction: 'none', width: '100%', height: '100%', position: 'relative' }}
     >
       <Canvas
         camera={{ position: [0, 1.0, 5.2], fov: 42 }}
         resize={{ scroll: false, debounce: { scroll: 50, resize: 0 } }}
         style={{
           width: '100%',
-          height: '100%',
+          height: 'calc(100% + 140px)',
+          position: 'absolute',
+          top: '-140px',
           display: 'block',
           overflow: 'visible',
           cursor: 'grab',
@@ -68,6 +71,8 @@ function GiftBox3D({ isOpen, isShaking, onClick }) {
         gl={{ alpha: true }}
       >
         <GiftBoxScene
+          revealRef={revealRef}
+          reducedMotion={reducedMotion}
           groupRef={groupRef}
           rotationRef={rotation}
           velocityRef={velocity}

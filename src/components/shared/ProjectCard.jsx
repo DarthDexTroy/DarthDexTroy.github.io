@@ -11,7 +11,6 @@ function ProjectCard({
   disablePush = false,
   forceStaticTilt = false,
 }) {
-  const cardOffsets = ['-14px', '12px', '-6px', '16px', '-10px', '8px']
   const isRightColumn = index % 2 === 1
   const hoveredRow = Math.floor(hoveredProject / 2)
   const myRow = Math.floor(index / 2)
@@ -31,11 +30,11 @@ function ProjectCard({
       const sameColumn = hoveredIsRightCol === isRightColumn
       if (sameColumn) {
         const dist = Math.abs(rowDistance)
-        pushY = rowDistance > 0 ? Math.max(4, 18 - dist * 5) : -Math.max(4, 18 - dist * 5)
+        pushY = rowDistance > 0 ? Math.max(2, 6 - dist * 2) : -Math.max(2, 6 - dist * 2)
       } else {
         const dist = Math.abs(rowDistance)
-        pushX = isRightColumn ? Math.max(2, 10 - dist * 4) : -Math.max(2, 10 - dist * 4)
-        pushY = rowDistance > 0 ? Math.max(2, 8 - dist * 3) : -Math.max(2, 8 - dist * 3)
+        pushX = isRightColumn ? Math.max(1, 4 - dist * 2) : -Math.max(1, 4 - dist * 2)
+        pushY = rowDistance > 0 ? Math.max(1, 3 - dist) : -Math.max(1, 3 - dist)
       }
     }
   }
@@ -50,7 +49,6 @@ function ProjectCard({
       <TiltCard
         className={`project-card glass-panel reveal-child ${project.award ? 'award-card' : ''}`}
         style={{
-          marginTop: cardOffsets[index] ?? '0px',
           borderColor: `${project.accent}33`,
           '--project-accent': project.accent,
           transitionDelay: `${delay}s`,

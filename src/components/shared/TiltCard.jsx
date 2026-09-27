@@ -49,7 +49,7 @@ function TiltCard({ children, className = '', style = {}, onMouseEnter, onMouseL
         onLeave()
         onMouseLeave?.(e)
       }}
-      whileHover={{ scale: 1.02, z: 20 }}
+      whileHover={{ scale: 1.01, z: 20 }}
       transition={{ type: 'spring', stiffness: 300, damping: 20 }}
     >
       {children}

@@ -6,6 +6,7 @@ import HeroWireframe from './components/desktop/HeroWireframe'
 import ExperienceCard from './components/shared/ExperienceCard'
 import HeroCodeRings from './components/shared/HeroCodeRings'
 import ProjectCard from './components/shared/ProjectCard'
+import ProjectGrid from './components/shared/ProjectGrid'
 import ShakeToUnlock from './components/shared/ShakeToUnlock'
 import Starfield from './components/shared/Starfield'
 import Typewriter from './components/shared/Typewriter'
@@ -306,7 +307,7 @@ function AppDesktop() {
             PROJECTS
           </h2>
 
-          <div className="projects-grid">
+          <ProjectGrid>
             <div className="project-column">
               {LEFT_PROJECTS.map((project, index) => (
                 <ProjectCard
@@ -334,7 +335,7 @@ function AppDesktop() {
                 />
               ))}
             </div>
-          </div>
+          </ProjectGrid>
         </section>
 
         <motion.section

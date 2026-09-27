@@ -1,26 +1,27 @@
 import { useFrame } from '@react-three/fiber'
 import { useRef } from 'react'
-import * as THREE from 'three'
+import { revealTime, progress, easeOut } from './arsenalReveal'
 import { Edges } from '@react-three/drei'
 
-function BoxLid({ isOpen }) {
+function BoxLid({ revealRef, reducedMotion }) {
   const lidRef3D = useRef(null)
-
   useFrame(() => {
-    if (!lidRef3D.current) return
-
     const lid = lidRef3D.current
-
-    if (isOpen) {
-      lid.position.y = THREE.MathUtils.lerp(lid.position.y, 3.8, 0.07)
-      lid.rotation.x = THREE.MathUtils.lerp(lid.rotation.x, -0.35, 0.07)
-      lid.rotation.y = THREE.MathUtils.lerp(lid.rotation.y, 0.2, 0.07)
-      return
-    }
-
-    lid.position.y = THREE.MathUtils.lerp(lid.position.y, 1.125, 0.08)
-    lid.rotation.x = THREE.MathUtils.lerp(lid.rotation.x, 0, 0.1)
-    lid.rotation.y = THREE.MathUtils.lerp(lid.rotation.y, 0, 0.1)
+    if (!lid) return
+    const time = revealTime(revealRef)
+    const pressure = easeOut(progress(time, 0.7, 0.14))
+    const release = easeOut(progress(time, 0.88, 0.65))
+    const exit = easeOut(progress(time, 1.5, 0.85))
+    lid.position.y = 1.125 + pressure * 0.08 + release * 0.95 + exit * 0.25
+    lid.rotation.x = -release * 0.3
+    lid.rotation.y = release * 0.16
+    lid.traverse((object) => {
+      if (object.material && object.material.opacity !== undefined) {
+        if (object.material.userData.initialOpacity === undefined) object.material.userData.initialOpacity = object.material.opacity
+        object.material.transparent = true
+        object.material.opacity = object.material.userData.initialOpacity * (reducedMotion ? 1 - progress(time, 0, 0.25) : 1 - exit)
+      }
+    })
   })
 
   return (
