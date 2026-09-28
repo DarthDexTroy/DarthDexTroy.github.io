@@ -111,7 +111,7 @@ export const PROJECTS = [
   },
   {
     title: 'FutureKey',
-    subtitle: 'Spring 2026',
+    subtitle: 'Goldman Sachs Hackathon',
     accent: '#00FF88',
     details: [
       'React + Django real estate intelligence platform for Seattle/King County',
