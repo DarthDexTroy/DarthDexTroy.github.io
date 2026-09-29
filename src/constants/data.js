@@ -111,7 +111,7 @@ export const PROJECTS = [
   },
   {
     title: 'FutureKey',
-    subtitle: 'Goldman Sachs Hackathon',
+    subtitle: 'Spring 2026',
     accent: '#00FF88',
     details: [
       'React + Django real estate intelligence platform for Seattle/King County',
@@ -126,7 +126,7 @@ export const PROJECTS = [
   },
   {
     title: 'ClarityInvest',
-    subtitle: 'Spring 2026',
+    subtitle: 'Goldman Sachs Hackathon',
     accent: '#00BFFF',
     details: [
       'Built a React + Vite investing platform supporting 5 account types (Brokerage, Roth IRA, HSA, 401(k), 529) with plain-English AI guidance via Groq API',
