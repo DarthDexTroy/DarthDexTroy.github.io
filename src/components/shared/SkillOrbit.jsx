@@ -2,6 +2,7 @@ import { useReducedMotion } from 'framer-motion'
 import { useLayoutEffect, useRef } from 'react'
 import { EMERGE_AT, revealTime, progress, easeOut } from './arsenalReveal'
 import { SKILL_CATEGORY_MAP } from '../../constants/data'
+import { spaceMobilePills } from './mobileSkillLayout'
 
 // Short labels occupy the smallest orbit; wider labels get more circumference.
 const RINGS = [
@@ -49,6 +50,9 @@ function SkillOrbit({ revealRef, stage }) {
     let centerX = 0
     let centerY = 0
     let radii = [0, 0, 0]
+    let verticalRadii = [0, 0, 0]
+    let mobileSizes = null
+    let mobileOffsets = []
     let frameId
     let previousTime
     if (stage === 'closed') elapsedRef.current = 0
@@ -69,26 +73,39 @@ function SkillOrbit({ revealRef, stage }) {
         path.style.transform = `translate(${(sourceX - centerX) * (1 - ringProgress)}px, ${(sourceY - centerY) * (1 - ringProgress)}px) scale(${ringProgress})`
       })
       let index = 0
+      const targets = []
       RINGS.forEach((ring, ringIndex) => {
         const phase = ring.phase + (reducedMotion ? 0 : elapsedRef.current * Math.PI * 2 / ring.period)
         ring.items.forEach((item, slot) => {
           const angle = phase + slot * Math.PI * 2 / ring.items.length
           const pill = pills[index++]
           const destinationX = centerX + radii[ringIndex] * Math.cos(angle)
-          const destinationY = centerY + radii[ringIndex] * Math.sin(angle)
+          const destinationY = centerY + verticalRadii[ringIndex] * Math.sin(angle)
           const arrival = entering ? progress(time, EMERGE_AT + order.indexOf(item.name) * 0.055, 0.62) : 1
           // A small spring overshoot settles onto the continuously moving target.
           const p = progress(arrival, 0.18, 0.82) - 1
           const travel = 1 + 1.6 * p ** 3 + 0.6 * p ** 2
           const lift = arrival < 0.18 ? 24 * easeOut(arrival / 0.18) : 24 * (1 - travel)
-          pill.style.left = `${sourceX + (destinationX - sourceX) * travel}px`
-          pill.style.top = `${sourceY + (destinationY - sourceY) * travel - lift}px`
+          const x = sourceX + (destinationX - sourceX) * travel
+          const y = sourceY + (destinationY - sourceY) * travel - lift
+          if (mobileSizes) targets.push({ x, y })
+          if (!mobileSizes || entering) {
+            pill.style.left = `${x}px`
+            pill.style.top = `${y}px`
+          }
           pill.style.opacity = Math.min(1, arrival * 4)
           if (arrival < 1) {
             pill.style.transform = `translate(-50%, -50%) scale(calc(var(--skill-scale, 1) * ${easeOut(arrival)}))`
           } else pill.style.removeProperty('transform')
         })
       })
+      if (mobileSizes && !entering) {
+        const positions = spaceMobilePills(targets, mobileSizes, centerX * 2, centerY * 2, mobileOffsets)
+        positions.forEach(({ x, y }, i) => {
+          pills[i].style.left = `${x}px`
+          pills[i].style.top = `${y}px`
+        })
+      }
     }
 
     const measure = () => {
@@ -97,6 +114,28 @@ function SkillOrbit({ revealRef, stage }) {
       // Circumscribed pill bounds keep neighboring rings separate at EVERY
       // angle, including hover/burst growth. Fit the orbit before animating it.
       const sizes = pills.map((pill) => [pill.offsetWidth, pill.offsetHeight])
+      if (window.matchMedia('(max-width: 768px)').matches) {
+        mobileSizes = sizes.map(([w, h]) => [w * 1.1, h * 1.1])
+        mobileOffsets = []
+        // Keep readable pills at full size. Use vertical space for the mobile
+        // ellipses, reserving the largest pill's bounds plus reveal overshoot.
+        const safeX = Math.max(0, centerX - 8 - Math.max(...sizes.map(([w]) => w)) * 1.1 / 2)
+        const safeY = Math.max(0, centerY - 24 - Math.max(...sizes.map(([, h]) => h)) * 1.1 / 2)
+        radii = RINGS.map((ring) => safeX * ring.fraction)
+        verticalRadii = RINGS.map((ring) => safeY * ring.fraction)
+        orbit.style.setProperty('--skill-scale', 1)
+        paths.forEach((path, index) => {
+          const width = radii[index] * 2 + 1
+          const height = verticalRadii[index] * 2 + 1
+          Object.assign(path.style, {
+            width: `${width}px`, height: `${height}px`,
+            marginLeft: `${-width / 2}px`, marginTop: `${-height / 2}px`,
+          })
+        })
+        paint()
+        return
+      }
+      mobileSizes = null
       // Keep the previous pill sizing; use the extra desktop space for radii.
       const sizingRatio = Math.min(1, 780 / orbit.clientWidth)
       const safeRadiusFor = (scale, ratio = 1) => Math.max(0, Math.min(
@@ -130,6 +169,7 @@ function SkillOrbit({ revealRef, stage }) {
       radii = result.map((radius, i) => radius + Math.max(0, spare) * RINGS[i].fraction)
       const enlargement = Math.min(1.225, safeRadiusFor(scale) / radii[2])
       radii = radii.map((radius) => radius * enlargement)
+      verticalRadii = radii
       orbit.style.setProperty('--skill-scale', scale)
       paths.forEach((path, index) => {
         const diameter = radii[index] * 2 + 1

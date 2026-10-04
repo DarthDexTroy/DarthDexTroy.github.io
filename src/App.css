@@ -1401,13 +1401,23 @@ footer {
     margin: 0;
   }
 
-  /* FIX 2 — Projects single column */
+  /* A long mobile list may never reach the section's 15% reveal threshold.
+     Keep projects visible even when reveal detection does not run. */
+  #projects.reveal-child,
+  #projects .reveal-child {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  /* Projects stay in normal flow with content-sized cards on mobile. */
   .projects-grid {
-    display: flex !important;
-    flex-direction: column !important;
+    display: grid;
+    grid-template-columns: 1fr;
     gap: 16px;
     width: 100%;
     padding: 0 !important;
+    perspective: none;
   }
 
   .project-column {
@@ -1483,29 +1493,32 @@ footer {
   }
 
   .skills-orbit {
-    width: min(380px, 100%);
-    height: auto;
-    aspect-ratio: 1;
+    width: 92%;
+    height: clamp(620px, 165vw, 760px);
+    aspect-ratio: auto;
     margin: 0 auto;
     position: relative;
     overflow: visible;
   }
 
+  .skills-orbit .ring {
+    border-radius: 50%;
+  }
+
   .skill-node {
-    max-width: 32vw;
-    padding: 0.28rem 0.5rem;
+    max-width: none;
+    min-height: 32px;
+    padding: 6px clamp(12px, 3.2vw, 16px);
     backdrop-filter: blur(2px);
     -webkit-backdrop-filter: blur(2px);
   }
 
   .skill-node span {
-    font-size: 10px;
+    font-size: clamp(13px, 3.35vw, 15px);
     font-weight: 600;
     line-height: 1.2;
     display: block;
     white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
   }
 
   .skill-node small,
@@ -1514,7 +1527,7 @@ footer {
   }
 
   .skills-interests {
-    font-size: 12px;
+    font-size: clamp(14px, 3.6vw, 15px);
     text-align: center;
     padding: 0 16px;
     line-height: 1.8;
@@ -1680,10 +1693,6 @@ footer {
     padding: 60px 16px;
   }
 
-  .skills-orbit {
-    aspect-ratio: 1 / 1;
-  }
-
   .ring-outer {
     width: 320px;
     height: 320px;
@@ -1705,9 +1714,6 @@ footer {
     margin-top: -72.5px;
   }
 
-  .skill-node span {
-    font-size: 0.62rem;
-  }
 }
 
 @media (max-width: 600px) {
