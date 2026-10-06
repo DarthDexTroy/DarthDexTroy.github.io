@@ -7,7 +7,6 @@ import ExperienceCard from './components/shared/ExperienceCard'
 import HeroCodeRings from './components/shared/HeroCodeRings'
 import ProjectCard from './components/shared/ProjectCard'
 import ShakeToUnlock from './components/shared/ShakeToUnlock'
-import Starfield from './components/shared/Starfield'
 import Typewriter from './components/shared/Typewriter'
 import {
   CONTACT_LINKS,
@@ -137,7 +136,6 @@ function AppMobile() {
   return (
     <>
       <HeroCodeRings />
-      <Starfield />
       <div className="grid-overlay" aria-hidden="true" />
 
       <motion.div className="scroll-progress" style={{ scaleX: progressScaleX }} />
@@ -216,10 +214,15 @@ function AppMobile() {
           whileInView="show"
           viewport={{ once: true, amount: 0.3 }}
         >
-          <HeroWireframe className="hero-wireframe" style={{ opacity: 0.3 }} />
-
-          <motion.h1 variants={CHILD_VARIANTS}>VEDHA PRAMEEDH VADDEPALLY</motion.h1>
-          <Typewriter className="hero-type mono" phrases={HERO_ROTATING_TEXT} />
+          <div className="hero-intro">
+            <HeroWireframe className="hero-wireframe" style={{ opacity: 0.3 }} />
+            <div className="hero-intro-copy">
+              <motion.h1 variants={CHILD_VARIANTS}>
+                VEDHA PRAMEEDH<br />VADDEPALLY
+              </motion.h1>
+              <Typewriter className="hero-type mono" phrases={HERO_ROTATING_TEXT} />
+            </div>
+          </div>
 
           <motion.div variants={CHILD_VARIANTS} className="hero-ctas">
             <a className="cta interactive" href="#projects">

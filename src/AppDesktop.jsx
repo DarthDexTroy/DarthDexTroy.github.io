@@ -8,7 +8,6 @@ import HeroCodeRings from './components/shared/HeroCodeRings'
 import ProjectCard from './components/shared/ProjectCard'
 import ProjectGrid from './components/shared/ProjectGrid'
 import ShakeToUnlock from './components/shared/ShakeToUnlock'
-import Starfield from './components/shared/Starfield'
 import Typewriter from './components/shared/Typewriter'
 import {
   CONTACT_LINKS,
@@ -176,7 +175,6 @@ function AppDesktop() {
   return (
     <>
       <HeroCodeRings />
-      <Starfield />
       <div className="grid-overlay" aria-hidden="true" />
 
       <motion.div className="scroll-progress" style={{ scaleX: progressScaleX }} />

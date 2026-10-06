@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import AppDesktop from './AppDesktop'
 import AppMobile from './AppMobile'
+import Starfield from './components/shared/Starfield'
 
 function App() {
   const [isMobile, setIsMobile] = useState(
@@ -13,7 +14,12 @@ function App() {
     return () => window.removeEventListener('resize', check)
   }, [])
 
-  return isMobile ? <AppMobile /> : <AppDesktop />
+  return (
+    <>
+      <Starfield />
+      {isMobile ? <AppMobile /> : <AppDesktop />}
+    </>
+  )
 }
 
 export default App
