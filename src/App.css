@@ -1789,8 +1789,8 @@ footer {
 
   .hero-intro-copy {
     width: 118%;
-    /* Half the globe's growth keeps the text group on its new center. */
-    top: -9%;
+    /* Lift the text together, without moving the globe or surrounding layout. */
+    top: calc(-9% - 20px);
   }
 
   .hero-intro h1 {
