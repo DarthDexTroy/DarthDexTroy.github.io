@@ -1774,6 +1774,29 @@ footer {
 }
 
 @media (max-width: 480px) {
+  .hero-section {
+    overflow: visible;
+  }
+
+  /* Grow upward from the approved globe bottom without moving the CTAs. */
+  .hero-intro .hero-wireframe {
+    width: 118%;
+    height: 118%;
+    top: auto;
+    bottom: 0;
+    transform: translateX(-50%);
+  }
+
+  .hero-intro-copy {
+    width: 118%;
+    /* Half the globe's growth keeps the text group on its new center. */
+    top: -9%;
+  }
+
+  .hero-intro h1 {
+    font-size: clamp(1.84rem, 8.05vw, 2.3rem);
+  }
+
   .status-pill {
     display: none;
   }
